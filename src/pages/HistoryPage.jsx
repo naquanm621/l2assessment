@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import ReactMarkdown from 'react-markdown'
+import { getSolutionReference } from '../utils/templates'
 
 function HistoryPage() {
   const [history, setHistory] = useState([])
@@ -147,7 +148,32 @@ function HistoryPage() {
                     <div>
                       <div className="text-xs font-semibold text-gray-600 mb-1">Recommended Action</div>
                       <div className="text-sm text-gray-800 bg-purple-50 p-3 rounded border border-purple-200">
-                        {item.recommendedAction}
+                        {typeof item.recommendedAction === 'string' ? item.recommendedAction : item.recommendedAction.action}
+                      </div>
+                    </div>
+                    <div>
+                      <div className="text-xs font-semibold text-gray-600 mb-1">Solution Reference</div>
+                      <div className="text-sm text-gray-800 bg-white p-3 rounded border border-gray-200 space-y-3">
+                        <a
+                          href={typeof item.recommendedAction === 'string' ? getSolutionReference(item.category).url : item.recommendedAction.supportUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="text-blue-700 font-semibold hover:text-blue-900"
+                        >
+                          Open troubleshooting guide
+                        </a>
+                        <div className="text-xs text-gray-500">
+                          {typeof item.recommendedAction === 'string'
+                            ? getSolutionReference(item.category).title
+                            : item.recommendedAction.supportTitle}
+                        </div>
+                        {((typeof item.recommendedAction === 'object' && item.recommendedAction.supportSteps) || getSolutionReference(item.category).steps).length > 0 && (
+                          <ul className="list-disc list-inside text-xs text-gray-600 space-y-1">
+                            {((typeof item.recommendedAction === 'object' && item.recommendedAction.supportSteps) || getSolutionReference(item.category).steps).slice(0, 3).map((step, index) => (
+                              <li key={index}>{step}</li>
+                            ))}
+                          </ul>
+                        )}
                       </div>
                     </div>
                     <div>
