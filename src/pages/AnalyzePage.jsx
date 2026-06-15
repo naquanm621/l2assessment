@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react'
 import ReactMarkdown from 'react-markdown'
-import { categorizeMessage } from '../utils/llmHelper'
-import { calculateUrgency, getUrgencyColor } from '../utils/urgencyScorer'
-import { analyzeSentiment, getSentimentColor } from '../utils/sentimentAnalyzer'
-import { getRecommendedAction, getDepartment } from '../utils/templates'
+import { analyzeMessage } from '../utils/llmHelper'
+import { getUrgencyColor } from '../utils/urgencyScorer'
+import { getSentimentColor } from '../utils/sentimentAnalyzer'
 
 function AnalyzePage() {
   const [message, setMessage] = useState('')
@@ -32,26 +31,7 @@ function AnalyzePage() {
     setShowGuide(false)
 
     try {
-      const categoryResult = await categorizeMessage(message)
-      const urgency = calculateUrgency(message)
-      const sentiment = analyzeSentiment(message)
-      const recommendedAction = getRecommendedAction(categoryResult.category, urgency)
-      const department = getDepartment(categoryResult.category)
-
-      const analysisResult = {
-        message,
-        category: categoryResult.category,
-        confidence: categoryResult.confidence || 0.8,
-        urgency,
-        sentiment: sentiment.sentiment,
-        sentimentScore: sentiment.score,
-        sentimentConfidence: sentiment.confidence,
-        recommendedAction,
-        department,
-        reasoning: categoryResult.reasoning || "",
-        timestamp: new Date().toISOString()
-      }
-
+      const analysisResult = await analyzeMessage(message)
       setResults(analysisResult)
       setShowResults(true)
 
