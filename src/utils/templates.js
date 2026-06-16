@@ -116,6 +116,13 @@ const actionTemplates = {
  * @param {string} urgency - The urgency level
  * @returns {object} - Recommended action with details
  */
+const appBase = import.meta.env.BASE_URL || '/'
+function resolveAppUrl(url) {
+  const normalizedBase = appBase.endsWith('/') ? appBase.slice(0, -1) : appBase
+  const normalizedUrl = url.startsWith('/') ? url : `/${url}`
+  return `${normalizedBase}${normalizedUrl}`
+}
+
 export function getRecommendedAction(category, urgency) {
   const template = actionTemplates[category] || actionTemplates["Unknown"];
   
@@ -128,7 +135,7 @@ export function getRecommendedAction(category, urgency) {
     details: template.details,
     priority: priority,
     estimatedTime: priority === "urgent" ? "< 5 min" : priority === "high" ? "< 1 hour" : "< 1 day",
-    supportUrl: template.supportUrl,
+    supportUrl: resolveAppUrl(template.supportUrl),
     supportTitle: template.supportTitle,
     supportSteps: template.supportSteps
   };
@@ -138,7 +145,7 @@ export function getSolutionReference(category) {
   const template = actionTemplates[category] || actionTemplates["Unknown"];
   return {
     title: template.supportTitle,
-    url: template.supportUrl,
+    url: resolveAppUrl(template.supportUrl),
     steps: template.supportSteps
   };
 }

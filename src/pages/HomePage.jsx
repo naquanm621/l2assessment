@@ -123,7 +123,7 @@ function HomePage() {
               ]
               const random = examples[Math.floor(Math.random() * examples.length)]
               localStorage.setItem('exampleMessage', random)
-              window.location.href = '/analyze'
+              window.location.href = `${import.meta.env.BASE_URL}analyze`
             }}
             className="group bg-white rounded-2xl shadow-lg p-8 hover:shadow-2xl hover:scale-105 transition-all duration-300 border border-white/50 cursor-pointer"
           >
