@@ -157,7 +157,7 @@ function HistoryPage() {
                         <a
                           href={typeof item.recommendedAction === 'string'
                             ? getSolutionReference(item.category).url
-                            : item.solutionReference?.url || item.recommendedAction.sourceUrl || item.recommendedAction.supportUrl}
+                            : item.solutionReference?.url || getSolutionReference(item.category).url || item.recommendedAction.sourceUrl || item.recommendedAction.supportUrl}
                           target="_blank"
                           rel="noreferrer"
                           className="text-blue-700 font-semibold hover:text-blue-900"

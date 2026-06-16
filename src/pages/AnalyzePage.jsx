@@ -3,6 +3,7 @@ import ReactMarkdown from 'react-markdown'
 import { analyzeMessage } from '../utils/llmHelper'
 import { getUrgencyColor } from '../utils/urgencyScorer'
 import { getSentimentColor } from '../utils/sentimentAnalyzer'
+import { getSolutionReference } from '../utils/templates'
 
 function AnalyzePage() {
   const [message, setMessage] = useState('')
@@ -287,7 +288,7 @@ function AnalyzePage() {
                       ))}
                     </div>
                     <a
-                      href={results.solutionReference?.url || results.recommendedAction.sourceUrl || results.recommendedAction.supportUrl}
+                      href={results.solutionReference?.url || getSolutionReference(results.category).url || results.recommendedAction.sourceUrl || results.recommendedAction.supportUrl}
                       target="_blank"
                       rel="noreferrer"
                       className="inline-flex items-center justify-center mt-5 rounded-full bg-blue-600 text-white px-4 py-2 text-sm font-semibold hover:bg-blue-700 transition-all duration-200"
