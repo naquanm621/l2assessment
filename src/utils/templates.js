@@ -2,6 +2,11 @@
  * Recommendation Templates - Maps categories to recommended actions
  */
 
+const searchBase = 'https://duckduckgo.com/?q='
+function getDuckDuckGoUrl(query) {
+  return `${searchBase}${encodeURIComponent(query)}`
+}
+
 const actionTemplates = {
   "Billing Issue": {
     action: "Direct to Billing Department",
@@ -9,6 +14,7 @@ const actionTemplates = {
     priority: "high",
     supportTitle: "Billing support guide",
     supportUrl: "/support/billing-issue",
+    sourceQuery: "billing issue customer support troubleshooting",
     supportSteps: [
       "Confirm customer billing details and recent transactions.",
       "Validate payment method and invoice status.",
@@ -22,6 +28,7 @@ const actionTemplates = {
     priority: "high",
     supportTitle: "Technical troubleshooting guide",
     supportUrl: "/support/technical-problem",
+    sourceQuery: "technical problem customer support troubleshooting",
     supportSteps: [
       "Collect device, browser, and error context from the user.",
       "Check for system status alerts or known outages.",
@@ -35,6 +42,7 @@ const actionTemplates = {
     priority: "low",
     supportTitle: "General support resources",
     supportUrl: "/support/general-inquiry",
+    sourceQuery: "general inquiry customer support resources",
     supportSteps: [
       "Search the knowledge base for related help articles.",
       "Share quick answers and documentation links.",
@@ -48,6 +56,7 @@ const actionTemplates = {
     priority: "low",
     supportTitle: "Feature request process",
     supportUrl: "/support/feature-request",
+    sourceQuery: "feature request customer support best practices",
     supportSteps: [
       "Capture the requested capability and customer benefit.",
       "Add the request to the product feedback queue.",
@@ -61,6 +70,7 @@ const actionTemplates = {
     priority: "high",
     supportTitle: "Bug triage workflow",
     supportUrl: "/support/bug-report",
+    sourceQuery: "bug report customer support troubleshooting",
     supportSteps: [
       "Verify the issue is reproducible and capture exact steps.",
       "Collect error messages, screenshots, and environment data.",
@@ -74,6 +84,7 @@ const actionTemplates = {
     priority: "high",
     supportTitle: "Account recovery guide",
     supportUrl: "/support/account-issue",
+    sourceQuery: "account issue customer support recovery guide",
     supportSteps: [
       "Confirm account ownership and identity details.",
       "Check for locked or suspended status.",
@@ -87,6 +98,7 @@ const actionTemplates = {
     priority: "low",
     supportTitle: "Feedback handling guide",
     supportUrl: "/support/feedback",
+    sourceQuery: "customer feedback handling best practices",
     supportSteps: [
       "Document the customer's feedback clearly.",
       "Share the suggestion with the product/UX team.",
@@ -100,6 +112,7 @@ const actionTemplates = {
     priority: "medium",
     supportTitle: "General support contact",
     supportUrl: "/support/contact-support",
+    sourceQuery: "customer support general troubleshooting",
     supportSteps: [
       "Review the issue details with a supervisor.",
       "Request additional customer context if needed.",
@@ -136,6 +149,7 @@ export function getRecommendedAction(category, urgency) {
     priority: priority,
     estimatedTime: priority === "urgent" ? "< 5 min" : priority === "high" ? "< 1 hour" : "< 1 day",
     supportUrl: resolveAppUrl(template.supportUrl),
+    sourceUrl: getDuckDuckGoUrl(template.sourceQuery || template.supportTitle),
     supportTitle: template.supportTitle,
     supportSteps: template.supportSteps
   };
@@ -145,7 +159,7 @@ export function getSolutionReference(category) {
   const template = actionTemplates[category] || actionTemplates["Unknown"];
   return {
     title: template.supportTitle,
-    url: resolveAppUrl(template.supportUrl),
+    url: getDuckDuckGoUrl(template.sourceQuery || template.supportTitle),
     steps: template.supportSteps
   };
 }

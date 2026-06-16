@@ -287,7 +287,7 @@ function AnalyzePage() {
                       ))}
                     </div>
                     <a
-                      href={results.recommendedAction.supportUrl}
+                      href={results.recommendedAction.sourceUrl || results.recommendedAction.supportUrl}
                       target="_blank"
                       rel="noreferrer"
                       className="inline-flex items-center justify-center mt-5 rounded-full bg-blue-600 text-white px-4 py-2 text-sm font-semibold hover:bg-blue-700 transition-all duration-200"

@@ -155,7 +155,7 @@ function HistoryPage() {
                       <div className="text-xs font-semibold text-gray-600 mb-1">Solution Reference</div>
                       <div className="text-sm text-gray-800 bg-white p-3 rounded border border-gray-200 space-y-3">
                         <a
-                          href={typeof item.recommendedAction === 'string' ? getSolutionReference(item.category).url : item.recommendedAction.supportUrl}
+                          href={typeof item.recommendedAction === 'string' ? getSolutionReference(item.category).url : item.recommendedAction.sourceUrl || item.recommendedAction.supportUrl}
                           target="_blank"
                           rel="noreferrer"
                           className="text-blue-700 font-semibold hover:text-blue-900"
