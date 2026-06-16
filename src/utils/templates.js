@@ -129,7 +129,7 @@ const actionTemplates = {
  * @param {string} urgency - The urgency level
  * @returns {object} - Recommended action with details
  */
-const appBase = import.meta.env.BASE_URL || '/'
+const appBase = (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.BASE_URL) ? import.meta.env.BASE_URL : '/'
 function resolveAppUrl(url) {
   const normalizedBase = appBase.endsWith('/') ? appBase.slice(0, -1) : appBase
   const normalizedUrl = url.startsWith('/') ? url : `/${url}`
