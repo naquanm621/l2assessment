@@ -10,7 +10,6 @@ function AnalyzePage() {
   const [results, setResults] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
   const [showResults, setShowResults] = useState(false)
-  const [showGuide, setShowGuide] = useState(true)
 
   useEffect(() => {
     const exampleMessage = localStorage.getItem('exampleMessage')
@@ -29,7 +28,6 @@ function AnalyzePage() {
     setIsLoading(true)
     setResults(null)
     setShowResults(false)
-    setShowGuide(false)
 
     try {
       const analysisResult = await analyzeMessage(message)
@@ -63,116 +61,6 @@ function AnalyzePage() {
           </h1>
           <p className="text-gray-600 text-lg">Get instant AI-powered categorization and routing recommendations</p>
         </div>
-
-        {/* Step Guide */}
-        {showGuide && !results && (
-          <div className="bg-white rounded-2xl shadow-lg p-8 mb-8 backdrop-blur-sm border border-white/50">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-2xl font-bold text-gray-900">How to Use</h2>
-              <button onClick={() => setShowGuide(false)} className="text-gray-500 hover:text-gray-700 text-2xl">✕</button>
-            </div>
-
-            <div className="space-y-4">
-              {/* Step 1 */}
-              <div className="flex gap-4">
-                <div className="flex-shrink-0">
-                  <div className="flex items-center justify-center h-10 w-10 rounded-full bg-blue-600 text-white font-bold">1</div>
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-900">Paste Customer Message</h3>
-                  <p className="text-gray-600">Enter or paste the customer's message in the text area below. Include as much detail as possible for better analysis.</p>
-                  <div className="mt-2 text-sm text-gray-500">💡 Example: "Our payment system is down and we can't process orders!"</div>
-                </div>
-              </div>
-
-              {/* Step 2 */}
-              <div className="flex gap-4">
-                <div className="flex-shrink-0">
-                  <div className="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-600 text-white font-bold">2</div>
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-900">Click Analyze</h3>
-                  <p className="text-gray-600">Press the "🚀 Analyze Message" button to start the AI analysis. The system will process your message instantly.</p>
-                </div>
-              </div>
-
-              {/* Step 3 */}
-              <div className="flex gap-4">
-                <div className="flex-shrink-0">
-                  <div className="flex items-center justify-center h-10 w-10 rounded-full bg-purple-600 text-white font-bold">3</div>
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-900">Review Results</h3>
-                  <p className="text-gray-600">You'll get four key insights:</p>
-                  <ul className="mt-2 space-y-2 text-sm text-gray-600">
-                    <li><strong className="text-blue-600">Category:</strong> What type of issue (Billing, Technical, etc.)</li>
-                    <li><strong className="text-amber-600">Urgency:</strong> How quickly it needs attention (High/Medium/Low)</li>
-                    <li><strong className="text-emerald-600">Sentiment:</strong> Customer's emotional tone (Positive/Negative/Neutral)</li>
-                    <li><strong className="text-rose-600">Recommended Action:</strong> What to do next</li>
-                  </ul>
-                </div>
-              </div>
-
-              {/* Step 4 */}
-              <div className="flex gap-4">
-                <div className="flex-shrink-0">
-                  <div className="flex items-center justify-center h-10 w-10 rounded-full bg-emerald-600 text-white font-bold">4</div>
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-900">Copy or Analyze Another</h3>
-                  <p className="text-gray-600">Copy the results to your clipboard or click "Analyze Another" to process a new message.</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Understanding Results */}
-            <div className="mt-8 pt-8 border-t border-gray-200">
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Understanding Your Results</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
-                  <div className="font-bold text-blue-900 mb-2">📂 Category</div>
-                  <p className="text-sm text-blue-800">The AI categorizes the message into one of these types:</p>
-                  <ul className="text-xs text-blue-700 mt-2 space-y-1">
-                    <li>• <strong>Billing Issue:</strong> Payment or invoice problems</li>
-                    <li>• <strong>Technical Problem:</strong> System errors or bugs</li>
-                    <li>• <strong>Feature Request:</strong> New feature suggestions</li>
-                    <li>• <strong>Account Issue:</strong> Login or account problems</li>
-                  </ul>
-                </div>
-
-                <div className="bg-amber-50 rounded-lg p-4 border border-amber-200">
-                  <div className="font-bold text-amber-900 mb-2">⏱️ Urgency Level</div>
-                  <p className="text-sm text-amber-800">How quickly the issue needs attention:</p>
-                  <ul className="text-xs text-amber-700 mt-2 space-y-1">
-                    <li>• <strong>🔴 High:</strong> Critical issue, handle within 5 mins</li>
-                    <li>• <strong>🟡 Medium:</strong> Important, handle within 1 hour</li>
-                    <li>• <strong>🟢 Low:</strong> Standard, handle within 1 day</li>
-                  </ul>
-                </div>
-
-                <div className="bg-emerald-50 rounded-lg p-4 border border-emerald-200">
-                  <div className="font-bold text-emerald-900 mb-2">💭 Sentiment</div>
-                  <p className="text-sm text-emerald-800">The customer's emotional tone:</p>
-                  <ul className="text-xs text-emerald-700 mt-2 space-y-1">
-                    <li>• <strong>😊 Positive:</strong> Happy, satisfied customer</li>
-                    <li>• <strong>😠 Negative:</strong> Frustrated or angry</li>
-                    <li>• <strong>😐 Neutral:</strong> Factual, no clear emotion</li>
-                  </ul>
-                </div>
-
-                <div className="bg-purple-50 rounded-lg p-4 border border-purple-200">
-                  <div className="font-bold text-purple-900 mb-2">✨ Confidence</div>
-                  <p className="text-sm text-purple-800">How confident the AI is in its categorization:</p>
-                  <ul className="text-xs text-purple-700 mt-2 space-y-1">
-                    <li>• <strong>80-100%:</strong> Highly confident categorization</li>
-                    <li>• <strong>60-79%:</strong> Good confidence level</li>
-                    <li>• <strong>&lt;60%:</strong> May need manual review</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
 
         {/* Input Card */}
         <div className="bg-white rounded-2xl shadow-lg p-8 mb-8 backdrop-blur-sm border border-white/50 hover:shadow-xl transition-all duration-300">

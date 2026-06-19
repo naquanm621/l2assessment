@@ -91,7 +91,7 @@ function HistoryPage() {
               Analyzed messages will appear here
             </p>
             <a
-              href={`${import.meta.env.BASE_URL}analyze`}
+              href={`${import.meta.env.BASE_URL}#/analyze`}
               className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 font-semibold"
             >
               Analyze a Message

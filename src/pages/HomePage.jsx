@@ -61,6 +61,39 @@ function HomePage() {
           </div>
         </div>
 
+        {/* Usage Guide */}
+        <div className="bg-white rounded-3xl shadow-lg p-8 mb-12 border border-white/60">
+          <div className="mb-6">
+            <h2 className="text-3xl font-bold text-gray-900">How to Use Relay AI</h2>
+            <p className="text-gray-600 mt-2 max-w-2xl">
+              Enter a customer message, run the analysis, and get clear triage recommendations for category,
+              urgency, sentiment, and next steps.
+            </p>
+          </div>
+          <div className="grid gap-6 md:grid-cols-2">
+            <div className="p-6 rounded-3xl border border-slate-200 bg-slate-50">
+              <div className="text-3xl mb-4">1</div>
+              <h3 className="text-xl font-semibold mb-3">Paste Customer Message</h3>
+              <p className="text-gray-600">Add the full customer message in the analyze tab, including details and error text.</p>
+            </div>
+            <div className="p-6 rounded-3xl border border-slate-200 bg-slate-50">
+              <div className="text-3xl mb-4">2</div>
+              <h3 className="text-xl font-semibold mb-3">Run the AI Analysis</h3>
+              <p className="text-gray-600">Click Analyze to classify the issue and get recommended routing.</p>
+            </div>
+            <div className="p-6 rounded-3xl border border-slate-200 bg-slate-50">
+              <div className="text-3xl mb-4">3</div>
+              <h3 className="text-xl font-semibold mb-3">Review the Results</h3>
+              <p className="text-gray-600">View category, urgency, sentiment, department, and solution references.</p>
+            </div>
+            <div className="p-6 rounded-3xl border border-slate-200 bg-slate-50">
+              <div className="text-3xl mb-4">4</div>
+              <h3 className="text-xl font-semibold mb-3">Take Action</h3>
+              <p className="text-gray-600">Use the recommended next steps or open the external reference guide.</p>
+            </div>
+          </div>
+        </div>
+
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
           <div className="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition-all duration-300 border border-white/50">
@@ -123,7 +156,7 @@ function HomePage() {
               ]
               const random = examples[Math.floor(Math.random() * examples.length)]
               localStorage.setItem('exampleMessage', random)
-              window.location.href = `${import.meta.env.BASE_URL}analyze`
+              window.location.href = `${import.meta.env.BASE_URL}#/analyze`
             }}
             className="group bg-white rounded-2xl shadow-lg p-8 hover:shadow-2xl hover:scale-105 transition-all duration-300 border border-white/50 cursor-pointer"
           >
